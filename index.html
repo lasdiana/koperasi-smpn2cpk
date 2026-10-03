@@ -148,6 +148,19 @@
       cursor: pointer;
       margin-top: 6px;
     }
+    .btn-danger {
+      width: 100%;
+      background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.2);
+    }
     .btn-download {
       width: 100%;
       background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
@@ -549,6 +562,10 @@
         <button type="button" class="btn-success" onclick="prosesSetoranPetugas()">
           💾 Simpan Transaksi Anggota
         </button>
+
+        <button type="button" class="btn-danger" onclick="hapusAnggotaPetugas()">
+          🗑️ Hapus Anggota Ini
+        </button>
       </div>
 
       <button type="button" class="btn-warning" onclick="openAdminKoreksiModal()">⚙️ Koreksi Saldo Manual</button>
@@ -725,6 +742,7 @@
 
       if (document.getElementById('page-petugas').classList.contains('active')) {
         renderDaftarAnggotaPetugas();
+        pilihAnggotaUntukPetugas(selectedAnggotaIndex < databaseAnggota.length ? selectedAnggotaIndex : 0);
       }
     });
 
@@ -957,13 +975,15 @@
       const target = databaseAnggota[index];
       if (target) {
         document.getElementById('selected-member-title').innerHTML = `📥 Transaksi untuk: <strong>${target.nama}</strong>`;
+      } else {
+        document.getElementById('selected-member-title').innerHTML = `Pilih Anggota Terlebih Dahulu`;
       }
       renderDaftarAnggotaPetugas();
     }
 
     function prosesSetoranPetugas() {
       const target = databaseAnggota[selectedAnggotaIndex];
-      if (!target) return;
+      if (!target) { alert('Pilih anggota terlebih dahulu!'); return; }
 
       const jenis = document.getElementById('input_jenis_transaksi').value;
       const nominalInput = document.getElementById('input_nominal_setor').value;
@@ -1002,9 +1022,27 @@
       });
     }
 
+    /* FITUR HAPUS ANGGOTA PETUGAS */
+    function hapusAnggotaPetugas() {
+      const target = databaseAnggota[selectedAnggotaIndex];
+      if (!target) { alert('Pilih anggota terlebih dahulu!'); return; }
+
+      const konfirmasi = confirm(`Apakah Anda yakin ingin menghapus akun anggota: ${target.nama} (NIP: ${target.nip})?\nData yang dihapus tidak dapat dikembalikan.`);
+      if (konfirmasi) {
+        db.ref('anggota/' + target.dbKey).remove((err) => {
+          if (!err) {
+            alert(`Anggota ${target.nama} berhasil dihapus dari sistem.`);
+            selectedAnggotaIndex = 0;
+          } else {
+            alert('Gagal menghapus anggota: ' + err.message);
+          }
+        });
+      }
+    }
+
     function openAdminKoreksiModal() {
       const target = databaseAnggota[selectedAnggotaIndex];
-      if (!target) return;
+      if (!target) { alert('Pilih anggota terlebih dahulu!'); return; }
       document.getElementById('modal-koreksi').classList.add('active');
       document.getElementById('edit_pokok').value = target.simpananPokok || 0;
       document.getElementById('edit_wajib').value = target.simpananWajib || 0;
