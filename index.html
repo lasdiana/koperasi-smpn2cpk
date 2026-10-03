@@ -74,7 +74,7 @@
 
     <!-- Modal Form -->
     <div id="modalForm" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-end md:items-center justify-center z-50 p-0 md:p-4">
-      <div class="bg-white w-full max-w-[450px] rounded-t-3xl md:rounded-3xl p-6 space-y-4 animate-slide-up">
+      <div class="bg-white w-full max-w-[450px] rounded-t-3xl md:rounded-3xl p-6 space-y-4">
         <div class="flex justify-between items-center border-b pb-3">
           <h3 id="modalTitle" class="font-bold text-slate-800">Tambah Transaksi</h3>
           <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600">&times;</button>
@@ -110,17 +110,16 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // ============================================================
-    // GANTI DENGAN KODE KONFIGURASI FIREBASE ANDA
-    // ============================================================
+    // KODE FIREBASE MILIK ANDA
     const firebaseConfig = {
-      apiKey: "AIzaSy...",
-      authDomain: "koperasi-smpn2.firebaseapp.com",
-      databaseURL: "https://koperasi-smpn2-default-rtdb.firebaseio.com",
-      projectId: "koperasi-smpn2",
-      storageBucket: "koperasi-smpn2.appspot.com",
-      messagingSenderId: "123456789",
-      appId: "1:123456789:web:abc123def456"
+      apiKey: "AIzaSyDF6O2eokTFy9zU2-bPFlehcG2qF1wRhG0",
+      authDomain: "koperasi-smpn2cpk.firebaseapp.com",
+      databaseURL: "https://koperasi-smpn2cpk-default-rtdb.firebaseio.com",
+      projectId: "koperasi-smpn2cpk",
+      storageBucket: "koperasi-smpn2cpk.firebasestorage.app",
+      messagingSenderId: "808812723705",
+      appId: "1:808812723705:web:481fb47c2288fe086ad128",
+      measurementId: "G-QD8CDZT8R9"
     };
 
     // Inisialisasi Firebase
