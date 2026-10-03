@@ -3,997 +3,216 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koperasi Simpan Pinjam - SMPN 2 Cipongkor</title>
+  <title>Koperasi SMPN 2 Cipongkor</title>
+  <!-- Google Fonts & Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .app-card {
-      width: 100%;
-      max-width: 450px;
-      background: #ffffff;
-      border-radius: 24px;
-      box-shadow: 0 15px 35px rgba(14, 116, 144, 0.2);
-      border: 1px solid #e0f2fe;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .page {
-      display: none;
-      padding: 28px 20px;
-    }
-    .page.active {
-      display: block;
-    }
-
-    /* Header & Logo */
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo-container {
-      width: 85px;
-      height: 85px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 10px;
-      padding: 6px;
-      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.15);
-      border: 2px solid #bae6fd;
-    }
-    .logo-img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-    .title {
-      font-size: 11px;
-      color: #0369a1;
-      letter-spacing: 1.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .subtitle {
-      font-size: 18px;
-      font-weight: 800;
-      color: #0c4a6e;
-      margin-top: 2px;
-    }
-
-    /* Form Inputs & Buttons */
-    .input-group {
-      margin-bottom: 14px;
-      text-align: left;
-    }
-    .input-group label {
-      display: block;
-      font-size: 12px;
-      color: #334155;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-    .input-group input, .input-group select {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 10px;
-      font-size: 13px;
-      color: #0f172a;
-      background-color: #f8fafc;
-      transition: all 0.2s;
-    }
-    .input-group input:focus, .input-group select:focus {
-      outline: none;
-      border-color: #0284c7;
-      background-color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-    }
-
-    .btn-primary {
-      width: 100%;
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 6px;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-    }
-    .btn-success {
-      width: 100%;
-      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-    .btn-warning {
-      width: 100%;
-      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-    .btn-secondary {
-      width: 100%;
-      background-color: #f1f5f9;
-      color: #475569;
-      border: 1px solid #cbd5e1;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-
-    /* Cards & Dashboard */
-    .profile-card {
-      background: linear-gradient(135deg, #0369a1 0%, #0f172a 100%);
-      border-radius: 16px;
-      padding: 16px;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-    .profile-avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 2px solid #7dd3fc;
-      object-fit: cover;
-      background-color: #e2e8f0;
-    }
-    .profile-info h3 {
-      font-size: 15px;
-      font-weight: 700;
-    }
-    .profile-info p {
-      font-size: 11px;
-      color: #bae6fd;
-    }
-    .badge {
-      display: inline-block;
-      background-color: rgba(255, 255, 255, 0.2);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 10px;
-      font-weight: 600;
-      margin-top: 4px;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .stat-card {
-      background-color: #f0f9ff;
-      border: 1px solid #bae6fd;
-      border-radius: 12px;
-      padding: 12px;
-    }
-    .stat-card.full {
-      grid-column: span 2;
-    }
-    .stat-card.highlight {
-      grid-column: span 2;
-      background-color: #fff7ed;
-      border: 1.5px solid #fdba74;
-    }
-    .stat-title {
-      font-size: 10px;
-      color: #0369a1;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .stat-title.orange { color: #c2410c; }
-    .stat-value {
-      font-size: 14px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-    .stat-value.danger { color: #e11d48; }
-    .stat-value.warning { color: #ea580c; font-size: 16px; }
-
-    /* MENU LAYANAN ANGGOTA */
-    .menu-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 10px;
-    }
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .menu-item {
-      background-color: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      padding: 12px 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .menu-item:hover {
-      border-color: #38bdf8;
-      background-color: #f0f9ff;
-    }
-    .menu-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-    .menu-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #334155;
-    }
-
-    /* PETUGAS PANEL STYLES */
-    .petugas-header {
-      background: #0284c7;
-      color: white;
-      padding: 12px 16px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .member-list {
-      max-height: 220px;
-      overflow-y: auto;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      margin-bottom: 16px;
-    }
-    .member-item {
-      padding: 10px 14px;
-      border-bottom: 1px solid #e2e8f0;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.2s;
-    }
-    .member-item:hover, .member-item.active {
-      background-color: #e0f2fe;
-    }
-    .member-item:last-child {
-      border-bottom: none;
-    }
-    .member-name {
-      font-weight: 700;
-      font-size: 13px;
-      color: #0f172a;
-    }
-    .member-nip {
-      font-size: 11px;
-      color: #64748b;
-    }
-
-    .box-input-transaksi {
-      background-color: #f8fafc;
-      border: 1.5px solid #0284c7;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    /* Modal Overlay General */
-    .modal-overlay {
-      display: none;
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.5);
-      backdrop-filter: blur(4px);
-      z-index: 100;
-      justify-content: center;
-      align-items: flex-end;
-    }
-    .modal-overlay.active { display: flex; }
-    .modal-content {
-      background: #ffffff;
-      width: 100%;
-      border-radius: 20px 20px 0 0;
-      padding: 20px;
-      box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
-      max-height: 90%;
-      overflow-y: auto;
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .close-btn {
-      background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;
-    }
-
-    /* Table Mutasi */
-    .mutasi-table {
-      width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 14px;
-    }
-    .mutasi-table th, .mutasi-table td {
-      border: 1px solid #e2e8f0; padding: 6px; text-align: left;
-    }
-    .mutasi-table th { background: #f0f9ff; color: #0369a1; }
-
-    .rek-box {
-      background-color: #f0f9ff;
-      border: 1.5px dashed #0284c7;
-      border-radius: 12px;
-      padding: 12px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      display: none;
-    }
-    .rek-box.active { display: block; }
-    .info-box {
-      background-color: #fff1f2;
-      border: 1.5px dashed #e11d48;
-      border-radius: 12px;
-      padding: 10px;
-      margin-bottom: 12px;
-    }
+    body { font-family: 'Inter', sans-serif; }
   </style>
 </head>
-<body>
+<body class="bg-slate-100 min-h-screen flex justify-center items-center p-0 md:p-4">
 
-  <div class="app-card">
-
-    <!-- ================= 1. HALAMAN LOGIN ================= -->
-    <div id="page-login" class="page active">
-      <div class="header">
-        <div class="logo-container">
-          <img src="logo smp.png" alt="Logo SMPN 2 Cipongkor" class="logo-img" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';">
-        </div>
-        <div class="title">KOPERASI SIMPAN PINJAM</div>
-        <div class="subtitle">SMPN 2 CIPONGKOR</div>
-      </div>
-
-      <form onsubmit="handleLogin(event)">
-        <div class="input-group">
-          <label for="login_nama">Nama Anggota / Petugas</label>
-          <input type="text" id="login_nama" placeholder="Contoh: Budi Santoso / Hari" required>
-        </div>
-
-        <div class="input-group">
-          <label for="login_nip">NIP / Password</label>
-          <input type="password" id="login_nip" placeholder="Masukkan NIP (Petugas: 123)" required>
-        </div>
-
-        <button type="submit" class="btn-primary">Masuk ke Sistem</button>
-      </form>
-
-      <div style="text-align: center; margin-top: 16px; font-size: 12px; color: #64748b;">
-        Belum punya akun? <a onclick="navigateTo('page-register')" style="color:#0284c7; font-weight:bold; cursor:pointer;">Daftar</a>
-      </div>
-    </div>
-
-    <!-- ================= 2. HALAMAN DAFTAR ANGGOTA BARU ================= -->
-    <div id="page-register" class="page">
-      <div class="header">
-        <div class="subtitle">Pendaftaran Anggota</div>
-        <div class="title">KOPERASI SMPN 2 CIPONGKOR</div>
-      </div>
-
-      <form onsubmit="handleRegister(event)">
-        <div class="input-group">
-          <label for="reg_nama">Nama Lengkap</label>
-          <input type="text" id="reg_nama" placeholder="Contoh: Ahmad Subagja, S.Pd." required>
-        </div>
-
-        <div class="input-group">
-          <label for="reg_jabatan">Jabatan / Unit Kerja</label>
-          <select id="reg_jabatan" required>
-            <option value="">-- Pilih Jabatan --</option>
-            <option value="Guru Pengajar">Guru Pengajar</option>
-            <option value="Staf TU">Staf Tata Usaha</option>
-            <option value="Kepala Sekolah">Kepala Sekolah</option>
-          </select>
-        </div>
-
-        <div class="input-group">
-          <label for="reg_nip">NIP / NUPTK</label>
-          <input type="text" id="reg_nip" placeholder="Masukkan NIP resmi" required>
-        </div>
-
-        <button type="submit" class="btn-primary">Daftar Sekarang</button>
-        <button type="button" class="btn-secondary" onclick="navigateTo('page-login')">Kembali</button>
-      </form>
-    </div>
-
-    <!-- ================= 3. DASHBOARD ANGGOTA BIASA ================= -->
-    <div id="page-dashboard" class="page">
-      <div class="profile-card">
-        <img id="user-photo" src="" alt="Foto" class="profile-avatar">
-        <div class="profile-info">
-          <h3 id="user-name">Nama Anggota</h3>
-          <p id="user-nip">NIP: -</p>
-          <span id="user-jabatan" class="badge">Jabatan</span>
-        </div>
-      </div>
-
-      <!-- Ringkasan Saldo -->
-      <div class="dashboard-grid">
-        <div class="stat-card">
-          <div class="stat-title">Simpanan Pokok</div>
-          <div class="stat-value" id="dash-simpanan-pokok">Rp 0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-title">Simpanan Wajib</div>
-          <div class="stat-value" id="dash-simpanan-wajib">Rp 0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-title">Jumlah Tabungan</div>
-          <div class="stat-value" id="dash-tabungan">Rp 0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-title">Sisa Pinjaman</div>
-          <div class="stat-value danger" id="dash-sisa-pinjaman">Rp 0</div>
-        </div>
-
-        <div class="stat-card highlight">
-          <div class="stat-title orange">Angsuran Dibayar Bulan Ini</div>
-          <div class="stat-value warning" id="dash-angsuran-bulan-ini">Rp 0</div>
-        </div>
-
-        <div class="stat-card full" style="background:#f8fafc;">
-          <div class="stat-title">Estimasi SHU (Tahun Ini)</div>
-          <div class="stat-value" style="color: #0284c7;">Rp 450.000</div>
-        </div>
-      </div>
-
-      <!-- Menu Layanan Anggota (KEMBALI HADIR) -->
-      <div class="menu-title">Layanan Koperasi</div>
-      <div class="menu-grid">
-        <div class="menu-item" onclick="openSetorModal()">
-          <div class="menu-icon">📥</div>
-          <div class="menu-label">Setor</div>
-        </div>
-        <div class="menu-item" onclick="openPinjamanModal()">
-          <div class="menu-icon">💳</div>
-          <div class="menu-label">Pinjaman</div>
-        </div>
-        <div class="menu-item" onclick="openMutasiModal()">
-          <div class="menu-icon">📜</div>
-          <div class="menu-label">Mutasi</div>
-        </div>
-      </div>
-
-      <button type="button" class="btn-secondary" onclick="navigateTo('page-login')" style="color: #e11d48; margin-top:6px;">Keluar (Logout)</button>
-    </div>
-
-    <!-- ================= 4. HALAMAN KHUSUS PETUGAS (HARI) ================= -->
-    <div id="page-petugas" class="page">
-      <div class="petugas-header">
+  <!-- Mobile Container -->
+  <div class="w-full max-w-[450px] bg-white min-h-screen md:min-h-[840px] md:rounded-3xl shadow-xl flex flex-col justify-between overflow-hidden relative">
+    
+    <!-- Header -->
+    <div class="bg-emerald-700 text-white p-6 rounded-b-3xl shadow-md">
+      <div class="flex justify-between items-center mb-4">
         <div>
-          <strong style="font-size: 14px;">Panel Petugas Koperasi</strong>
-          <div style="font-size: 11px; opacity: 0.9;">Petugas: Hari (NIP: 123)</div>
+          <h1 class="text-xs uppercase tracking-wider text-emerald-200 font-medium">Sistem Koperasi</h1>
+          <h2 class="text-lg font-bold">SMPN 2 Cipongkor</h2>
         </div>
-        <button onclick="navigateTo('page-login')" style="background: rgba(255,255,255,0.2); border:none; color:white; padding:5px 10px; border-radius:6px; cursor:pointer; font-size:11px;">Logout</button>
+        <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center font-bold border border-emerald-400">
+          K
+        </div>
       </div>
+      
+      <!-- Total Saldo Card -->
+      <div class="bg-emerald-800/60 p-4 rounded-2xl border border-emerald-500/30 backdrop-blur-sm">
+        <p class="text-xs text-emerald-200">Total Kas Koperasi</p>
+        <p id="totalSaldo" class="text-2xl font-bold mt-1">Rp 0</p>
+      </div>
+    </div>
 
-      <label style="font-size: 12px; font-weight:700; color:#0369a1; display:block; margin-bottom:6px;">📋 Pilih Anggota Koperasi:</label>
-      <div class="member-list" id="daftar-anggota-container"></div>
-
-      <div class="box-input-transaksi">
-        <h4 id="selected-member-title" style="font-size: 13px; color:#0c4a6e; margin-bottom:10px; border-bottom:1px solid #cbd5e1; padding-bottom:4px;">
-          Pilih Anggota Terlebih Dahulu
-        </h4>
-
-        <div class="input-group">
-          <label for="input_jenis_transaksi">Jenis Transaksi / Setoran</label>
-          <select id="input_jenis_transaksi">
-            <option value="tabungan">Setor Sukarela / Tabungan</option>
-            <option value="wajib">Setor Simpanan Wajib</option>
-            <option value="pokok">Setor Simpanan Pokok</option>
-            <option value="angsuran">Bayar Angsuran Pinjaman</option>
-          </select>
-        </div>
-
-        <div class="input-group">
-          <label for="input_nominal_setor">Nominal (Rp)</label>
-          <input type="number" id="input_nominal_setor" placeholder="Masukkan angka setor">
-        </div>
-
-        <button type="button" class="btn-success" onclick="prosesSetoranPetugas()">
-          💾 Simpan Transaksi Anggota
+    <!-- Main Content -->
+    <div class="p-5 flex-1 space-y-6 overflow-y-auto">
+      
+      <!-- Quick Action Buttons -->
+      <div class="grid grid-cols-3 gap-3">
+        <button onclick="openModal('setor')" class="flex flex-col items-center justify-center p-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-2xl transition border border-emerald-200">
+          <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          <span class="text-xs font-semibold">Setor</span>
+        </button>
+        <button onclick="openModal('pinjam')" class="flex flex-col items-center justify-center p-3 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-2xl transition border border-amber-200">
+          <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+          <span class="text-xs font-semibold">Pinjam</span>
+        </button>
+        <button onclick="openModal('bayar')" class="flex flex-col items-center justify-center p-3 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-2xl transition border border-blue-200">
+          <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span class="text-xs font-semibold">Angsuran</span>
         </button>
       </div>
 
-      <button type="button" class="btn-warning" onclick="openAdminKoreksiModal()">⚙️ Koreksi Saldo Manual</button>
-    </div>
-
-    <!-- ================= MODAL SETOR (UNTUK ANGGOTA) ================= -->
-    <div id="modal-setor" class="modal-overlay">
-      <div class="modal-content">
-        <div class="modal-header">
-          <strong style="font-size: 14px;">Setor Simpanan / Tabungan</strong>
-          <button class="close-btn" onclick="closeSetorModal()">&times;</button>
+      <!-- Recent Transactions List -->
+      <div>
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-sm font-bold text-slate-700">Riwayat Transaksi</h3>
+          <span class="text-xs text-slate-400">Terbaru</span>
         </div>
-
-        <div class="input-group">
-          <label for="setor_nominal">Jumlah Nominal (Rp)</label>
-          <input type="number" id="setor_nominal" placeholder="Contoh: 100000" min="10000">
-        </div>
-
-        <div class="input-group">
-          <label for="setor_metode">Metode Pembayaran</label>
-          <select id="setor_metode" onchange="toggleMetodeSetor()">
-            <option value="tunai">Setor Langsung (Tunai ke Bendahara)</option>
-            <option value="transfer">Transfer Bank / E-Wallet</option>
-          </select>
-        </div>
-
-        <div id="rek-info" class="rek-box">
-          <div style="font-size: 11px; color: #0284c7; font-weight: 700;">Bank BRI - Rekening Koperasi</div>
-          <div style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 4px 0;">4123-0100-8899-532</div>
-          <div style="font-size: 11px; color: #475569;">a.n. Bendahara Koperasi SMPN 2 Cipongkor</div>
-        </div>
-
-        <div id="btn-container">
-          <button type="button" class="btn-primary" onclick="prosesSetorTunai()">Proses Setor Tunai</button>
+        <div id="transactionList" class="space-y-3">
+          <p class="text-xs text-center text-slate-400 py-4">Memuat data dari database...</p>
         </div>
       </div>
+
     </div>
 
-    <!-- ================= MODAL PINJAMAN (UNTUK ANGGOTA) ================= -->
-    <div id="modal-pinjaman" class="modal-overlay">
-      <div class="modal-content">
-        <div class="modal-header">
-          <strong style="font-size: 14px;">Pengajuan Pinjaman</strong>
-          <button class="close-btn" onclick="closePinjamanModal()">&times;</button>
-        </div>
-
-        <div class="input-group">
-          <label for="pinjaman_tipe">Jenis Pengajuan</label>
-          <select id="pinjaman_tipe" onchange="toggleTipePinjaman()">
-            <option value="topup">Top-Up Pinjaman</option>
-            <option value="baru">Pinjaman Baru</option>
-          </select>
-        </div>
-
-        <!-- FORM TOP-UP PINJAMAN -->
-        <div id="form-topup">
-          <div class="info-box">
-            <div style="font-size: 10px; color: #e11d48; font-weight: 700;">Rincian Sisa Pinjaman Saat Ini</div>
-            <div style="font-size: 16px; font-weight: 800; color: #881337;" id="topup-sisa-pinjaman">Rp 0</div>
-          </div>
-
-          <div class="input-group">
-            <label for="topup_nominal">Nominal Tambahan Pinjaman (Rp)</label>
-            <input type="number" id="topup_nominal" placeholder="Contoh: 3000000">
-          </div>
-
-          <div class="input-group">
-            <label for="topup_angsuran">Tenor Angsuran</label>
-            <select id="topup_angsuran">
-              <option value="3 Bulan">3 Bulan</option>
-              <option value="6 Bulan">6 Bulan</option>
-              <option value="12 Bulan">12 Bulan</option>
-            </select>
-          </div>
-
-          <button type="button" class="btn-success" onclick="kirimTopupWA()">📲 Ajukan Top-Up via WhatsApp</button>
-        </div>
-
-        <!-- FORM PINJAMAN BARU -->
-        <div id="form-pinjaman-baru" style="display: none;">
-          <div class="input-group">
-            <label for="baru_nominal">Jumlah Yang Ingin Dipinjam (Rp)</label>
-            <input type="number" id="baru_nominal" placeholder="Contoh: 5000000">
-          </div>
-
-          <div class="input-group">
-            <label for="baru_angsuran">Lama Angsuran</label>
-            <select id="baru_angsuran">
-              <option value="3 Bulan">3 Bulan</option>
-              <option value="6 Bulan">6 Bulan</option>
-              <option value="12 Bulan">12 Bulan</option>
-            </select>
-          </div>
-
-          <button type="button" class="btn-success" onclick="kirimPinjamanBaruWA()">📲 Ajukan Pinjaman Baru via WhatsApp</button>
-        </div>
-      </div>
+    <!-- Footer -->
+    <div class="p-4 text-center border-t border-slate-100 bg-slate-50">
+      <p class="text-[10px] text-slate-400">© Koperasi SMPN 2 Cipongkor • Firebase Realtime DB</p>
     </div>
 
-    <!-- ================= MODAL MUTASI ================= -->
-    <div id="modal-mutasi" class="modal-overlay">
-      <div class="modal-content">
-        <div class="modal-header">
-          <strong style="font-size: 14px;">Riwayat Mutasi Transaksi</strong>
-          <button class="close-btn" onclick="closeMutasiModal()">&times;</button>
+    <!-- Modal Form -->
+    <div id="modalForm" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-end md:items-center justify-center z-50 p-0 md:p-4">
+      <div class="bg-white w-full max-w-[450px] rounded-t-3xl md:rounded-3xl p-6 space-y-4 animate-slide-up">
+        <div class="flex justify-between items-center border-b pb-3">
+          <h3 id="modalTitle" class="font-bold text-slate-800">Tambah Transaksi</h3>
+          <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600">&times;</button>
         </div>
-        <table class="mutasi-table">
-          <thead>
-            <tr>
-              <th>Tanggal</th>
-              <th>Keterangan</th>
-              <th>Nominal</th>
-            </tr>
-          </thead>
-          <tbody id="mutasi-list"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ================= MODAL KOREKSI SALDO (PETUGAS) ================= -->
-    <div id="modal-koreksi" class="modal-overlay">
-      <div class="modal-content">
-        <div class="modal-header">
-          <strong style="font-size: 14px;">Koreksi Saldo Anggota</strong>
-          <button class="close-btn" onclick="closeAdminKoreksiModal()">&times;</button>
-        </div>
-
-        <div class="input-group"><label>Simpanan Pokok (Rp)</label><input type="number" id="edit_pokok"></div>
-        <div class="input-group"><label>Simpanan Wajib (Rp)</label><input type="number" id="edit_wajib"></div>
-        <div class="input-group"><label>Jumlah Tabungan (Rp)</label><input type="number" id="edit_tabungan"></div>
-        <div class="input-group"><label>Sisa Pinjaman (Rp)</label><input type="number" id="edit_pinjaman"></div>
-        <div class="input-group"><label>Angsuran Bulan Ini (Rp)</label><input type="number" id="edit_angsuran"></div>
-
-        <button type="button" class="btn-primary" onclick="simpanKoreksiPetugas()">💾 Simpan Perubahan Saldo</button>
+        <form id="txForm" onsubmit="saveTransaction(event)">
+          <input type="hidden" id="txType">
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-medium text-slate-600 block mb-1">Nama Anggota</label>
+              <input type="text" id="txNama" required placeholder="Contoh: Pak Ahmad" class="w-full p-2.5 text-sm border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-medium text-slate-600 block mb-1">Jumlah (Rp)</label>
+              <input type="number" id="txJumlah" required placeholder="0" class="w-full p-2.5 text-sm border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-medium text-slate-600 block mb-1">Keterangan</label>
+              <input type="text" id="txKet" placeholder="Catatan opsional" class="w-full p-2.5 text-sm border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+          </div>
+          <div class="flex gap-2 mt-5">
+            <button type="button" onclick="closeModal()" class="w-1/2 py-2.5 text-sm font-medium text-slate-600 bg-slate-100 rounded-xl hover:bg-slate-200">Batal</button>
+            <button type="submit" id="btnSubmit" class="w-1/2 py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-xl hover:bg-emerald-700">Simpan</button>
+          </div>
+        </form>
       </div>
     </div>
 
   </div>
 
-  <script>
-    const NO_WA_BENDAHARA = '6283822993789';
+  <!-- Firebase SDK Modular -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // DATABASE UTAMA ANGGOTA
-    let databaseAnggota = [
-      {
-        id: 1,
-        nama: 'Budi Santoso, S.Pd.',
-        nip: '19850330 201001 1 008',
-        jabatan: 'Guru Pengajar',
-        foto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-        simpananPokok: 500000,
-        simpananWajib: 1200000,
-        tabungan: 3850000,
-        sisaPinjaman: 2000000,
-        angsuranBulanIni: 500000,
-        mutasi: [
-          { tgl: '01/10/2026', ket: 'Setoran Wajib', nominal: '+ Rp 100.000' },
-          { tgl: '15/09/2026', ket: 'Angsuran Pinjaman', nominal: '- Rp 500.000' }
-        ]
-      },
-      {
-        id: 2,
-        nama: 'Siti Nurjanah, M.Pd.',
-        nip: '19900512 201502 2 003',
-        jabatan: 'Guru Pengajar',
-        foto: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
-        simpananPokok: 500000,
-        simpananWajib: 800000,
-        tabungan: 1500000,
-        sisaPinjaman: 0,
-        angsuranBulanIni: 0,
-        mutasi: [
-          { tgl: '01/10/2026', ket: 'Setoran Sukarela', nominal: '+ Rp 200.000' }
-        ]
+    // ============================================================
+    // GANTI DENGAN KODE KONFIGURASI FIREBASE ANDA
+    // ============================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSy...",
+      authDomain: "koperasi-smpn2.firebaseapp.com",
+      databaseURL: "https://koperasi-smpn2-default-rtdb.firebaseio.com",
+      projectId: "koperasi-smpn2",
+      storageBucket: "koperasi-smpn2.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "1:123456789:web:abc123def456"
+    };
+
+    // Inisialisasi Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const txRef = ref(db, 'transaksi');
+
+    // Load Data Transaksi secara Realtime
+    onValue(txRef, (snapshot) => {
+      const data = snapshot.val();
+      const listContainer = document.getElementById('transactionList');
+      let totalSaldo = 0;
+      listContainer.innerHTML = '';
+
+      if (!data) {
+        listContainer.innerHTML = '<p class="text-xs text-center text-slate-400 py-4">Belum ada transaksi.</p>';
+        document.getElementById('totalSaldo').innerText = 'Rp 0';
+        return;
       }
-    ];
 
-    let currentLoggedInUser = null;
-    let selectedAnggotaIndex = 0;
-
-    function navigateTo(pageId) {
-      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-    }
-
-    function handleLogin(e) {
-      e.preventDefault();
-      const nama = document.getElementById('login_nama').value.trim();
-      const nip = document.getElementById('login_nip').value.trim();
-
-      // CEK JIKA LOGIN SEBAGAI PETUGAS (HARI / 123)
-      if (nama.toLowerCase() === 'hari' && nip === '123') {
-        renderDaftarAnggotaPetugas();
-        pilihAnggotaUntukPetugas(0);
-        navigateTo('page-petugas');
-      } else {
-        // LOGIN SEBAGAI ANGGOTA BIASA
-        let found = databaseAnggota.find(a => a.nama.toLowerCase().includes(nama.toLowerCase()) || a.nip === nip);
-        if (!found) {
-          found = {
-            id: databaseAnggota.length + 1,
-            nama: nama,
-            nip: nip,
-            jabatan: 'Anggota Koperasi',
-            foto: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-            simpananPokok: 500000,
-            simpananWajib: 200000,
-            tabungan: 500000,
-            sisaPinjaman: 0,
-            angsuranBulanIni: 0,
-            mutasi: []
-          };
-          databaseAnggota.push(found);
+      const items = Object.values(data).reverse(); // urutkan dari terbaru
+      items.forEach(item => {
+        const amount = parseInt(item.jumlah);
+        if (item.tipe === 'setor' || item.tipe === 'bayar') {
+          totalSaldo += amount;
+        } else if (item.tipe === 'pinjam') {
+          totalSaldo -= amount;
         }
-        currentLoggedInUser = found;
-        updateDashboardUI();
-        navigateTo('page-dashboard');
-      }
-    }
 
-    function handleRegister(e) {
-      e.preventDefault();
-      const nama = document.getElementById('reg_nama').value;
-      const jabatan = document.getElementById('reg_jabatan').value;
-      const nip = document.getElementById('reg_nip').value;
+        const isPlus = item.tipe === 'setor' || item.tipe === 'bayar';
+        const badgeColor = item.tipe === 'setor' ? 'text-emerald-600 bg-emerald-50' : (item.tipe === 'pinjam' ? 'text-amber-600 bg-amber-50' : 'text-blue-600 bg-blue-50');
 
-      databaseAnggota.push({
-        id: databaseAnggota.length + 1,
-        nama: nama,
-        nip: nip,
-        jabatan: jabatan,
-        foto: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-        simpananPokok: 500000,
-        simpananWajib: 0,
-        tabungan: 0,
-        sisaPinjaman: 0,
-        angsuranBulanIni: 0,
-        mutasi: []
-      });
-
-      alert('Pendaftaran Berhasil! Silakan Login.');
-      document.getElementById('login_nama').value = nama;
-      document.getElementById('login_nip').value = nip;
-      navigateTo('page-login');
-    }
-
-    function updateDashboardUI() {
-      if (!currentLoggedInUser) return;
-      document.getElementById('user-name').innerText = currentLoggedInUser.nama;
-      document.getElementById('user-nip').innerText = 'NIP: ' + currentLoggedInUser.nip;
-      document.getElementById('user-jabatan').innerText = currentLoggedInUser.jabatan;
-      document.getElementById('user-photo').src = currentLoggedInUser.foto;
-
-      document.getElementById('dash-simpanan-pokok').innerText = 'Rp ' + currentLoggedInUser.simpananPokok.toLocaleString('id-ID');
-      document.getElementById('dash-simpanan-wajib').innerText = 'Rp ' + currentLoggedInUser.simpananWajib.toLocaleString('id-ID');
-      document.getElementById('dash-tabungan').innerText = 'Rp ' + currentLoggedInUser.tabungan.toLocaleString('id-ID');
-      document.getElementById('dash-sisa-pinjaman').innerText = 'Rp ' + currentLoggedInUser.sisaPinjaman.toLocaleString('id-ID');
-      document.getElementById('dash-angsuran-bulan-ini').innerText = 'Rp ' + currentLoggedInUser.angsuranBulanIni.toLocaleString('id-ID');
-    }
-
-    /* FITUR SETOR ANGGOTA */
-    function openSetorModal() {
-      document.getElementById('modal-setor').classList.add('active');
-      toggleMetodeSetor();
-    }
-    function closeSetorModal() {
-      document.getElementById('modal-setor').classList.remove('active');
-    }
-    function toggleMetodeSetor() {
-      const metode = document.getElementById('setor_metode').value;
-      const rekBox = document.getElementById('rek-info');
-      const btnContainer = document.getElementById('btn-container');
-
-      if (metode === 'transfer') {
-        rekBox.classList.add('active');
-        btnContainer.innerHTML = `
-          <button type="button" class="btn-success" onclick="konfirmasiTransferWA()">
-            📲 Konfirmasi Transfer via WA
-          </button>`;
-      } else {
-        rekBox.classList.remove('active');
-        btnContainer.innerHTML = `
-          <button type="button" class="btn-primary" onclick="prosesSetorTunai()">
-            Proses Setor Tunai
-          </button>`;
-      }
-    }
-    function prosesSetorTunai() {
-      const nominal = document.getElementById('setor_nominal').value;
-      if (!nominal || nominal < 10000) {
-        alert('Harap masukkan nominal setor minimal Rp 10.000');
-        return;
-      }
-      alert(`Permintaan setor tunai sebesar Rp ${parseInt(nominal).toLocaleString('id-ID')} dicatat.`);
-      closeSetorModal();
-    }
-    function konfirmasiTransferWA() {
-      const nominal = document.getElementById('setor_nominal').value;
-      if (!nominal || nominal < 10000) {
-        alert('Harap masukkan nominal setor minimal Rp 10.000');
-        return;
-      }
-      const pesanWA = `Halo Bendahara Koperasi SMPN 2 Cipongkor,%0A%0ASaya konfirmasi *Setor Transfer Bank*:%0A%0A` +
-        `• *Nama*: ${currentLoggedInUser.nama}%0A` +
-        `• *NIP*: ${currentLoggedInUser.nip}%0A` +
-        `• *Nominal*: Rp ${parseInt(nominal).toLocaleString('id-ID')}%0A%0AMohon diproses!`;
-      window.open(`https://wa.me/${NO_WA_BENDAHARA}?text=${pesanWA}`, '_blank');
-      closeSetorModal();
-    }
-
-    /* FITUR PINJAMAN ANGGOTA */
-    function openPinjamanModal() {
-      document.getElementById('modal-pinjaman').classList.add('active');
-      document.getElementById('topup-sisa-pinjaman').innerText = 'Rp ' + currentLoggedInUser.sisaPinjaman.toLocaleString('id-ID');
-      toggleTipePinjaman();
-    }
-    function closePinjamanModal() {
-      document.getElementById('modal-pinjaman').classList.remove('active');
-    }
-    function toggleTipePinjaman() {
-      const tipe = document.getElementById('pinjaman_tipe').value;
-      document.getElementById('form-topup').style.display = (tipe === 'topup') ? 'block' : 'none';
-      document.getElementById('form-pinjaman-baru').style.display = (tipe === 'baru') ? 'block' : 'none';
-    }
-    function kirimTopupWA() {
-      const nominal = document.getElementById('topup_nominal').value;
-      const angsuran = document.getElementById('topup_angsuran').value;
-      if (!nominal || nominal <= 0) {
-        alert('Harap masukkan nominal tambahan pinjaman!');
-        return;
-      }
-      const pesanWA = `Halo Bendahara Koperasi,%0A%0ASaya ingin *TOP-UP PINJAMAN*:%0A%0A` +
-        `• *Nama*: ${currentLoggedInUser.nama}%0A` +
-        `• *NIP*: ${currentLoggedInUser.nip}%0A` +
-        `• *Sisa Pinjaman*: Rp ${currentLoggedInUser.sisaPinjaman.toLocaleString('id-ID')}%0A` +
-        `• *Nominal Tambahan*: Rp ${parseInt(nominal).toLocaleString('id-ID')}%0A` +
-        `• *Tenor*: ${angsuran}%0A%0AMohon diproses!`;
-      window.open(`https://wa.me/${NO_WA_BENDAHARA}?text=${pesanWA}`, '_blank');
-      closePinjamanModal();
-    }
-    function kirimPinjamanBaruWA() {
-      const nominal = document.getElementById('baru_nominal').value;
-      const angsuran = document.getElementById('baru_angsuran').value;
-      if (!nominal || nominal <= 0) {
-        alert('Harap masukkan nominal pinjaman baru!');
-        return;
-      }
-      const pesanWA = `Halo Bendahara Koperasi,%0A%0ASaya ingin mengajukan *PINJAMAN BARU*:%0A%0A` +
-        `• *Nama*: ${currentLoggedInUser.nama}%0A` +
-        `• *NIP*: ${currentLoggedInUser.nip}%0A` +
-        `• *Jumlah Pinjaman*: Rp ${parseInt(nominal).toLocaleString('id-ID')}%0A` +
-        `• *Lama Angsuran*: ${angsuran}%0A%0AMohon diproses!`;
-      window.open(`https://wa.me/${NO_WA_BENDAHARA}?text=${pesanWA}`, '_blank');
-      closePinjamanModal();
-    }
-
-    /* FITUR MUTASI ANGGOTA */
-    function openMutasiModal() {
-      document.getElementById('modal-mutasi').classList.add('active');
-      const list = document.getElementById('mutasi-list');
-      list.innerHTML = '';
-      if (!currentLoggedInUser || currentLoggedInUser.mutasi.length === 0) {
-        list.innerHTML = '<tr><td colspan="3" style="text-align:center;">Belum ada riwayat transaksi</td></tr>';
-      } else {
-        currentLoggedInUser.mutasi.forEach(m => {
-          list.innerHTML += `<tr><td>${m.tgl}</td><td>${m.ket}</td><td>${m.nominal}</td></tr>`;
-        });
-      }
-    }
-    function closeMutasiModal() {
-      document.getElementById('modal-mutasi').classList.remove('active');
-    }
-
-    /* HALAMAN PETUGAS PANEL */
-    function renderDaftarAnggotaPetugas() {
-      const container = document.getElementById('daftar-anggota-container');
-      container.innerHTML = '';
-      databaseAnggota.forEach((anggota, index) => {
-        const item = document.createElement('div');
-        item.className = `member-item ${index === selectedAnggotaIndex ? 'active' : ''}`;
-        item.onclick = () => pilihAnggotaUntukPetugas(index);
-        item.innerHTML = `
-          <div>
-            <div class="member-name">${anggota.nama}</div>
-            <div class="member-nip">NIP: ${anggota.nip}</div>
+        const card = `
+          <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-sm text-slate-800">${item.nama}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${badgeColor}">${item.tipe}</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">${item.keterangan || '-'} • ${item.tanggal}</p>
+            </div>
+            <span class="font-bold text-sm ${isPlus ? 'text-emerald-600' : 'text-amber-600'}">
+              ${isPlus ? '+' : '-'} Rp ${amount.toLocaleString('id-ID')}
+            </span>
           </div>
-          <div style="font-size: 11px; text-align:right;">
-            <div style="color:#0284c7; font-weight:bold;">Tabungan: Rp ${anggota.tabungan.toLocaleString('id-ID')}</div>
-            <div style="color:#e11d48;">Pinjaman: Rp ${anggota.sisaPinjaman.toLocaleString('id-ID')}</div>
-          </div>`;
-        container.appendChild(item);
+        `;
+        listContainer.innerHTML += card;
       });
-    }
 
-    function pilihAnggotaUntukPetugas(index) {
-      selectedAnggotaIndex = index;
-      const target = databaseAnggota[index];
-      document.getElementById('selected-member-title').innerHTML = `
-        📥 Transaksi untuk: <strong>${target.nama}</strong>`;
-      renderDaftarAnggotaPetugas();
-    }
+      document.getElementById('totalSaldo').innerText = 'Rp ' + totalSaldo.toLocaleString('id-ID');
+    });
 
-    function prosesSetoranPetugas() {
-      const target = databaseAnggota[selectedAnggotaIndex];
-      const jenis = document.getElementById('input_jenis_transaksi').value;
-      const nominalInput = document.getElementById('input_nominal_setor').value;
-      const nominal = parseInt(nominalInput);
+    // Fungsi Simpan ke Firebase
+    window.saveTransaction = async (e) => {
+      e.preventDefault();
+      const tipe = document.getElementById('txType').value;
+      const nama = document.getElementById('txNama').value;
+      const jumlah = document.getElementById('txJumlah').value;
+      const keterangan = document.getElementById('txKet').value;
 
-      if (!nominal || nominal <= 0) {
-        alert('Harap isi nominal angka setoran!');
-        return;
+      const newTx = {
+        tipe,
+        nama,
+        jumlah,
+        keterangan,
+        tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
+        timestamp: Date.now()
+      };
+
+      try {
+        await push(txRef, newTx);
+        closeModal();
+      } catch (err) {
+        alert('Gagal menyimpan data: ' + err.message);
       }
+    };
+  </script>
 
-      let today = new Date().toLocaleDateString('id-ID');
-
-      if (jenis === 'tabungan') {
-        target.tabungan += nominal;
-        target.mutasi.unshift({ tgl: today, ket: 'Setoran Tabungan', nominal: '+ Rp ' + nominal.toLocaleString('id-ID') });
-      } else if (jenis === 'wajib') {
-        target.simpananWajib += nominal;
-        target.mutasi.unshift({ tgl: today, ket: 'Setor Simpanan Wajib', nominal: '+ Rp ' + nominal.toLocaleString('id-ID') });
-      } else if (jenis === 'pokok') {
-        target.simpananPokok += nominal;
-        target.mutasi.unshift({ tgl: today, ket: 'Setor Simpanan Pokok', nominal: '+ Rp ' + nominal.toLocaleString('id-ID') });
-      } else if (jenis === 'angsuran') {
-        target.sisaPinjaman = Math.max(0, target.sisaPinjaman - nominal);
-        target.mutasi.unshift({ tgl: today, ket: 'Bayar Angsuran Pinjaman', nominal: '- Rp ' + nominal.toLocaleString('id-ID') });
-      }
-
-      alert(`Berhasil menambahkan transaksi Rp ${nominal.toLocaleString('id-ID')} untuk ${target.nama}`);
-      document.getElementById('input_nominal_setor').value = '';
-      renderDaftarAnggotaPetugas();
+  <script>
+    // Helper Fungsi Modal Tampilan
+    function openModal(type) {
+      document.getElementById('txType').value = type;
+      const titles = { setor: 'Tambah Simpanan/Setoran', pinjam: 'Pengajuan Pinjaman', bayar: 'Pembayaran Angsuran' };
+      document.getElementById('modalTitle').innerText = titles[type];
+      document.getElementById('modalForm').classList.remove('hidden');
+      document.getElementById('modalForm').classList.add('flex');
     }
 
-    function openAdminKoreksiModal() {
-      const target = databaseAnggota[selectedAnggotaIndex];
-      document.getElementById('modal-koreksi').classList.add('active');
-      document.getElementById('edit_pokok').value = target.simpananPokok;
-      document.getElementById('edit_wajib').value = target.simpananWajib;
-      document.getElementById('edit_tabungan').value = target.tabungan;
-      document.getElementById('edit_pinjaman').value = target.sisaPinjaman;
-      document.getElementById('edit_angsuran').value = target.angsuranBulanIni;
-    }
-    function closeAdminKoreksiModal() {
-      document.getElementById('modal-koreksi').classList.remove('active');
-    }
-    function simpanKoreksiPetugas() {
-      const target = databaseAnggota[selectedAnggotaIndex];
-      target.simpananPokok = parseInt(document.getElementById('edit_pokok').value) || 0;
-      target.simpananWajib = parseInt(document.getElementById('edit_wajib').value) || 0;
-      target.tabungan = parseInt(document.getElementById('edit_tabungan').value) || 0;
-      target.sisaPinjaman = parseInt(document.getElementById('edit_pinjaman').value) || 0;
-      target.angsuranBulanIni = parseInt(document.getElementById('edit_angsuran').value) || 0;
-
-      alert('Koreksi saldo anggota berhasil disimpan!');
-      renderDaftarAnggotaPetugas();
-      closeAdminKoreksiModal();
+    function closeModal() {
+      document.getElementById('modalForm').classList.add('hidden');
+      document.getElementById('modalForm').classList.remove('flex');
+      document.getElementById('txForm').reset();
     }
   </script>
 </body>
